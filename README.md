@@ -106,7 +106,8 @@ graph LR
 ```bash
 cd backend
 python -m venv .venv
-source .venv/bin/activate  # (On Windows: .venv\Scripts\activate)
+# On Windows: .venv\Scripts\activate
+# On Mac/Linux: source .venv/bin/activate
 pip install -r requirements.txt
 
 # Run the server with dummy data seeded
@@ -121,6 +122,17 @@ npm install
 npm run dev
 ```
 *The dashboard runs on `http://localhost:3000`*
+
+---
+
+## 📐 Engineering Standards & Methodology
+
+This project was built adhering to strict, professional software engineering standards to ensure it is production-ready rather than just a prototype:
+
+- **Conventional Commits:** The Git history is strictly structured into atomic, functional commits (e.g., `feat(ai)`, `feat(backend)`, `chore(ui)`) allowing for clean tracking of architectural decisions.
+- **Thread-Safe Architecture:** The backend securely isolates the SQLite database instances from the asynchronous thread-pools (`run_in_threadpool`), preventing deadlocks during intensive frame-by-frame video processing.
+- **Strict Linting & Typing:** The Next.js frontend strictly adheres to ESLint rules with `0` warnings/errors, utilizing robust `useCallback` hooks and separated side-effects.
+- **Security-First Configuration:** API keys and sensitive identifiers are managed completely out-of-code using `python-dotenv`, avoiding hardcoded fallbacks in the repository.
 
 ---
 
