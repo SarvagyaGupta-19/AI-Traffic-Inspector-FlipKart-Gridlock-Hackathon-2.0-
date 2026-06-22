@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/output:/app/output
+      - ./backend/data/samples:/app/data/samples
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8000
+      - YOLO_MODEL=yolov8s.pt
+      - YOLO_CONFIDENCE=0.35
+    restart: unless-stopped
+
+  # Frontend is deployed to Vercel separately
+  # For local development, run: cd frontend && npm run dev
