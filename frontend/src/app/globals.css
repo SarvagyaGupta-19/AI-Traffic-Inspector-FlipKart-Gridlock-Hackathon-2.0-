@@ -1,0 +1,268 @@
+@import "tailwindcss";
+
+:root {
+  --bg-primary: #F4F6F8; /* Light grey background */
+  --bg-secondary: #FFFFFF; /* Pure white sidebar/cards */
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #F8F9FA;
+  --border-color: #DFE3E8;
+  --text-primary: #1C2434; /* Near black */
+  --text-secondary: #637381; /* Muted grey */
+  
+  /* Standardized Officer Actions/Alerts */
+  --accent-blue: #0052CC; /* Primary Action / Information */
+  --accent-purple: #403294; /* Secondary Brand */
+  --accent-red: #DE350B; /* Critical Violation / Reject */
+  --accent-green: #00875A; /* Success / Approve */
+  --accent-orange: #FF991F; /* Warning */
+  --accent-cyan: #00B8D9;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-color) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 3px;
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Standard Enterprise Card ────────────────────────────── */
+.glass-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 8px; /* Sharper corners for enterprise feel */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* Subtle depth, no glow */
+  transition: all 0.2s ease-in-out;
+}
+
+/* Removed glass-card hover lift for a more solid, stable feel */
+
+/* ─── Glow Effects Removed (kept classes for compatibility, zeroed out) ── */
+.glow-blue, .glow-red, .glow-green, .animate-pulse-glow {
+  box-shadow: none;
+  animation: none;
+}
+
+/* ─── Gradient Text Removed (made solid) ─────────────────────────── */
+.gradient-text {
+  color: var(--accent-blue);
+  background: none;
+  -webkit-text-fill-color: initial;
+}
+
+.gradient-text-warm {
+  color: var(--accent-red);
+  background: none;
+  -webkit-text-fill-color: initial;
+}
+
+/* ─── Animated Background Grid Removed ──────────────────────── */
+.bg-grid {
+  background-image: none;
+}
+
+/* ─── Slide-in Animation (Keep, it's good UX) ───────────────── */
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.3s ease-out forwards;
+}
+
+.stagger-children > * {
+  opacity: 0;
+  animation: slide-up 0.3s ease-out forwards;
+}
+
+.stagger-children > *:nth-child(1) { animation-delay: 0.05s; }
+.stagger-children > *:nth-child(2) { animation-delay: 0.1s; }
+.stagger-children > *:nth-child(3) { animation-delay: 0.15s; }
+.stagger-children > *:nth-child(4) { animation-delay: 0.2s; }
+.stagger-children > *:nth-child(5) { animation-delay: 0.25s; }
+.stagger-children > *:nth-child(6) { animation-delay: 0.3s; }
+
+/* ─── Drop Zone ─────────────────────────────────────── */
+.drop-zone {
+  border: 2px dashed var(--border-color);
+  border-radius: 8px;
+  background: #FAFBFC;
+  transition: all 0.2s ease;
+}
+
+.drop-zone.active,
+.drop-zone:hover {
+  border-color: var(--accent-blue);
+  background: #EAF2FF;
+}
+
+/* ─── Solid Status Badge ──────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 4px; /* Strict pill */
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.badge-red {
+  background: #FFEBE6;
+  color: var(--accent-red);
+  border: 1px solid #FFBDAD;
+}
+
+.badge-green {
+  background: #E3FCEF;
+  color: var(--accent-green);
+  border: 1px solid #ABF5D1;
+}
+
+.badge-orange {
+  background: #FFFAE6;
+  color: var(--accent-orange);
+  border: 1px solid #FFF0B3;
+}
+
+.badge-blue {
+  background: #DEEBFF;
+  color: var(--accent-blue);
+  border: 1px solid #B3D4FF;
+}
+
+.badge-purple {
+  background: #EAE6FF;
+  color: var(--accent-purple);
+  border: 1px solid #C0B6F2;
+}
+
+/* ─── Progress Bar ──────────────────────────────────── */
+.progress-bar {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--border-color);
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: var(--accent-blue);
+  transition: width 0.3s ease;
+}
+
+/* ─── Shimmer Loading ───────────────────────────────── */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    #F4F6F8 25%,
+    #FFFFFF 50%,
+    #F4F6F8 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+/* ─── Strict Utilitarian Buttons ─────────────────────────────────── */
+.btn-primary {
+  background: var(--accent-blue);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 14px;
+  border: 1px solid var(--accent-blue);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-primary:hover {
+  background: #0047B3;
+}
+
+.btn-primary:active {
+  background: #003380;
+}
+
+.btn-secondary {
+  background: #FFFFFF;
+  color: var(--text-primary);
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 14px;
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+  background: #F4F6F8;
+  border-color: #C1C7D0;
+}
+
+.btn-success {
+  background: var(--accent-green);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 14px;
+  border: 1px solid var(--accent-green);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-success:hover {
+  background: #006644;
+}
+
+.btn-danger {
+  background: var(--accent-red);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 14px;
+  border: 1px solid var(--accent-red);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-danger:hover {
+  background: #BF2600;
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
