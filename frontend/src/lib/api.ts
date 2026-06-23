@@ -19,82 +19,26 @@ class ApiClient {
   constructor(baseUrl: string = API_BASE) {
     this.baseUrl = baseUrl;
     if (typeof window !== 'undefined') {
-      this.token = localStorage.getItem('gridlock_token');
+      localStorage.removeItem('gridlock_token');
     }
   }
 
-  setToken(token: string | null) {
-    this.token = token;
-    if (typeof window !== 'undefined') {
-      if (token) localStorage.setItem('gridlock_token', token);
-      else localStorage.removeItem('gridlock_token');
-    }
-  }
-
-  getToken() {
-    return this.token;
-  }
-
-  private async request<T>(path: string, options?: RequestInit): Promise<T> {
-    const url = `${this.baseUrl}${path}`;
+  private async request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
     const headers: Record<string, string> = {
-      ...options?.headers as Record<string, string>,
+      ...options.headers as Record<string, string>,
     };
-    
-    if (this.token) {
-      headers['Authorization'] = `Bearer ${this.token}`;
-    }
 
-    const res = await fetch(url, {
+    const response = await fetch(`${this.baseUrl}${endpoint}`, {
       ...options,
       headers,
     });
 
-    if (res.status === 401) {
-       // Token expired or invalid
-       this.setToken(null);
-       if (typeof window !== 'undefined' && !window.location.pathname.includes('/login')) {
-         window.location.href = '/login';
-       }
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({}));
+      throw new Error(error.detail || 'API request failed');
     }
 
-    if (!res.ok) {
-      const errorText = await res.text();
-      throw new Error(`API Error ${res.status}: ${errorText}`);
-    }
-
-    return res.json();
-  }
-
-  // ─── Authentication ───────────────────────────────────────
-
-  async login(username: string, password: string): Promise<{ access_token: string; token_type: string }> {
-    const formData = new URLSearchParams();
-    formData.append('username', username);
-    formData.append('password', password);
-
-    const res = await fetch(`${this.baseUrl}/api/auth/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: formData,
-    });
-
-    if (!res.ok) {
-      throw new Error('Invalid credentials');
-    }
-
-    const data = await res.json();
-    this.setToken(data.access_token);
-    return data;
-  }
-
-  logout() {
-    this.setToken(null);
-    if (typeof window !== 'undefined') {
-      window.location.href = '/';
-    }
+    return response.json();
   }
 
   // ─── Upload ───────────────────────────────────────────────

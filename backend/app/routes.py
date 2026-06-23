@@ -12,9 +12,11 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Optional
 
-from fastapi import APIRouter, Depends, File, HTTPException, Query, UploadFile, Form, status
+from fastapi import APIRouter, Depends, File, HTTPException, Query, UploadFile, Form
 from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
+from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
+from pydantic import BaseModel
 from starlette.concurrency import run_in_threadpool
 
 import sys
@@ -24,8 +26,7 @@ from app.database import (
     get_db, get_violations, get_violation_by_id, delete_violation,
     get_analytics, ViolationDB, SessionLocal, clear_all_violations, UserDB
 )
-from app.auth import get_current_user, create_access_token, verify_password, ACCESS_TOKEN_EXPIRE_MINUTES
-from fastapi.security import OAuth2PasswordRequestForm
+
 from pydantic import BaseModel
 from app.pipeline import process_image
 from app.video_processor import VideoProcessor
@@ -98,8 +99,7 @@ async def upload_file(
 async def upload_video(
     file: UploadFile = File(...),
     frame_skip: int = Query(10, ge=1, le=30),
-    location: str = Form(""),
-    current_user: UserDB = Depends(get_current_user)
+    location: str = Form("")
 ):
     """
     Upload a traffic video and process it frame-by-frame.
@@ -170,48 +170,14 @@ class Token(BaseModel):
     access_token: str
     token_type: str
 
-def authenticate_user(db: Session, username: str, password: str) -> UserDB | None:
-    user = db.query(UserDB).filter(UserDB.username == username).first()
-    if not user:
-        return None
-    if not verify_password(password, user.hashed_password):
-        return None
-    return user
 
-@router.post("/auth/login", response_model=Token)
-async def login_for_access_token(
-    form_data: OAuth2PasswordRequestForm = Depends(),
-    db: Session = Depends(get_db)
-):
-    try:
-        user = authenticate_user(db, form_data.username, form_data.password)
-        if not user:
-            raise HTTPException(
-                status_code=401,
-                detail="Incorrect username or password",
-                headers={"WWW-Authenticate": "Bearer"},
-            )
-        
-        from datetime import timedelta
-        from app.auth import ACCESS_TOKEN_EXPIRE_MINUTES
-    
-        access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-        access_token = create_access_token(
-            data={"sub": user.username}, expires_delta=access_token_expires
-        )
-        return {"access_token": access_token, "token_type": "bearer"}
-    except Exception as e:
-        import traceback
-        error_details = traceback.format_exc()
-        raise HTTPException(status_code=400, detail=f"DEBUG ERROR: {str(e)} | Trace: {error_details}")
 
 
 # ─── Database Reset ────────────────────────────────────────
 
 @router.post("/reset")
 async def reset_database(
-    db: Session = Depends(get_db),
-    current_user: UserDB = Depends(get_current_user)
+    db: Session = Depends(get_db)
 ):
     """
     Clear all violation data for a fresh demo.
@@ -236,8 +202,7 @@ async def list_violations(
     start_date: Optional[str] = Query(None),
     end_date: Optional[str] = Query(None),
     status: Optional[str] = Query(None),
-    db: Session = Depends(get_db),
-    current_user: UserDB = Depends(get_current_user)
+    db: Session = Depends(get_db)
 ):
     """List violations with pagination and filters."""
     violations, total = get_violations(
@@ -271,8 +236,7 @@ async def get_single_violation(
 @router.delete("/violations/{violation_id}")
 async def remove_violation(
     violation_id: int,
-    db: Session = Depends(get_db),
-    current_user: UserDB = Depends(get_current_user)
+    db: Session = Depends(get_db)
 ):
     """Delete a violation record."""
     if delete_violation(db, violation_id):
@@ -286,8 +250,7 @@ class StatusUpdate(BaseModel):
 async def update_violation_status(
     violation_id: int,
     payload: StatusUpdate,
-    db: Session = Depends(get_db),
-    current_user: UserDB = Depends(get_current_user)
+    db: Session = Depends(get_db)
 ):
     """Update the status of a violation (e.g. issued, rejected)."""
     v = get_violation_by_id(db, violation_id)
@@ -307,8 +270,7 @@ async def update_violation_status(
 
 @router.get("/analytics")
 async def analytics_summary(
-    db: Session = Depends(get_db),
-    current_user: UserDB = Depends(get_current_user)
+    db: Session = Depends(get_db)
 ):
     """Get analytics summary for the dashboard."""
     data = get_analytics(db)

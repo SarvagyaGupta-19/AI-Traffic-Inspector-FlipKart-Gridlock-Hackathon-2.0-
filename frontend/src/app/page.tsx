@@ -21,7 +21,7 @@ export default function LandingPage() {
     setIsNavigating(true);
     // Let the animation play for 1.5 seconds before navigating
     setTimeout(() => {
-      router.push('/login');
+      router.push('/upload');
     }, 1500);
   };
 
@@ -126,7 +126,7 @@ export default function LandingPage() {
           onClick={handleOfficerAccess}
           className="px-8 py-4 bg-[#f4f4f4] text-[#07707b] font-black uppercase tracking-[0.2em] text-sm sm:text-[2vh] hover:bg-[#f4a896] hover:text-[#111] transition-colors shadow-[6px_6px_0px_rgba(0,0,0,0.8)] border-2 border-[#111] active:translate-y-1 active:translate-x-1 active:shadow-[2px_2px_0px_rgba(0,0,0,0.8)]"
         >
-          CLICK FOR OFFICER ACCESS
+          ENTER DASHBOARD
         </button>
       </footer>
     </div>
