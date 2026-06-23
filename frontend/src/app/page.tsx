@@ -1,12 +1,21 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import LoadingOverlay from '@/components/ui/LoadingOverlay';
 
 export default function LandingPage() {
   const [isNavigating, setIsNavigating] = useState(false);
+  const [isInitialLoading, setIsInitialLoading] = useState(true);
   const router = useRouter();
+
+  useEffect(() => {
+    // Show the initial loading screen for 1.5 seconds when first visiting the site
+    const timer = setTimeout(() => {
+      setIsInitialLoading(false);
+    }, 1500);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleOfficerAccess = () => {
     setIsNavigating(true);
@@ -18,7 +27,10 @@ export default function LandingPage() {
 
   return (
     <div className="relative min-h-screen bg-[#07707b] overflow-hidden selection:bg-[#f4a896] selection:text-[#07707b] flex flex-col" style={{ fontFamily: 'Impact, "Arial Black", sans-serif' }}>
-      <LoadingOverlay isVisible={isNavigating} text="ESTABLISHING SECURE CONNECTION..." />
+      <LoadingOverlay 
+        isVisible={isInitialLoading || isNavigating} 
+        text={isInitialLoading ? "INITIALIZING SYSTEM..." : "ESTABLISHING SECURE CONNECTION..."} 
+      />
 
       {/* Heavy Grain/Noise Texture */}
       <div 
