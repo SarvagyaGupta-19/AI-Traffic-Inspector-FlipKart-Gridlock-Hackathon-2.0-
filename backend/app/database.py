@@ -58,38 +58,11 @@ class ViolationDB(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
 
 
-class UserDB(Base):
-    """Admin user for the dashboard."""
-    __tablename__ = "users"
-
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    username = Column(String(50), unique=True, index=True, nullable=False)
-    hashed_password = Column(String(255), nullable=False)
-    created_at = Column(DateTime, default=datetime.utcnow)
-
-
 # ─── Database Initialization ────────────────────────────────
 
 def init_db():
-    """Create all tables and seed default admin."""
+    """Create all tables."""
     Base.metadata.create_all(bind=engine)
-    
-    db = SessionLocal()
-    try:
-        from app.auth import get_password_hash
-        
-        admin_user = db.query(UserDB).filter(UserDB.username == "admin").first()
-        if not admin_user:
-            admin_user = UserDB(
-                username="admin",
-                hashed_password=get_password_hash("admin")
-            )
-            db.add(admin_user)
-            db.commit()
-            logger.info("Created default admin user (admin:admin)")
-    finally:
-        db.close()
-    
     logger.info("Database initialized")
 
 

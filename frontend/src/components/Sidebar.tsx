@@ -13,12 +13,7 @@ const navItems = [
 export default function Sidebar() {
   const pathname = usePathname();
 
-  const handleSignOut = () => {
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem('gridlock_token');
-      window.location.href = '/';
-    }
-  };
+
 
   return (
     <aside className="w-[320px] h-screen overflow-y-auto overflow-x-hidden flex flex-col items-center pt-8 pb-12 relative shrink-0 no-scrollbar">
@@ -111,17 +106,7 @@ export default function Sidebar() {
           }
         })}
 
-        {/* Sign Out - No Parking Sign */}
-        <button onClick={handleSignOut} className="relative group transition-transform hover:scale-105 origin-center mt-12 rotate-2">
-           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80px] h-4 bg-[#444] z-[-1]" />
-           <div className="bg-white border-4 border-red-600 rounded p-2 w-[140px] flex flex-col items-center justify-center text-center shadow-[0_15px_30px_rgba(0,0,0,0.4)]">
-             <div className="w-16 h-16 rounded-full border-4 border-red-600 relative flex items-center justify-center mb-1">
-               <span className="text-red-600 font-black text-3xl">P</span>
-               <div className="absolute inset-0 border-t-4 border-red-600 rotate-45 transform origin-center translate-y-[28px]" />
-             </div>
-             <span className="text-red-600 font-black text-xs uppercase tracking-tight">SIGN OUT</span>
-           </div>
-        </button>
+
 
       </div>
     </aside>
