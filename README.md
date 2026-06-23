@@ -7,7 +7,7 @@
 
 **Project Name:** AI TRAFFIC INSPECTOR - The Ultimate AI Traffic Inspector  
 **Hackathon:** Flipkart Gridlock Hackathon 2.0  
-**Team/Submitter:** Sarvagya Gupta
+**Team/Submitter:** Viterbi. Team Lead: Sarvagya Gupta, Co-Lead: Piyush Jha
 
 ---
 
