@@ -76,14 +76,13 @@ def init_db():
     
     db = SessionLocal()
     try:
-        from passlib.context import CryptContext
-        pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+        from app.auth import get_password_hash
         
         admin_user = db.query(UserDB).filter(UserDB.username == "admin").first()
         if not admin_user:
             admin_user = UserDB(
                 username="admin",
-                hashed_password=pwd_context.hash("admin")
+                hashed_password=get_password_hash("admin")
             )
             db.add(admin_user)
             db.commit()
