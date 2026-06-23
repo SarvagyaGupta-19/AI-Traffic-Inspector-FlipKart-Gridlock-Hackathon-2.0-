@@ -8,6 +8,7 @@ import logging
 import re
 from pathlib import Path
 from typing import List, Optional, Tuple
+import concurrent.futures
 
 import cv2
 import numpy as np
@@ -79,46 +80,17 @@ def read_plates(
     # Get vehicle detections
     vehicles = [d for d in detections if d.class_name in ("car", "motorcycle", "bus", "truck")]
 
-    for vehicle in vehicles:
-        # Try to find plate in the lower half of the vehicle bbox
-        plate_region = _get_plate_region(vehicle.bbox, image.shape)
-
-        # Crop the plate search region
-        crop = image[plate_region.y1:plate_region.y2, plate_region.x1:plate_region.x2]
-        if crop.size == 0:
-            continue
-
-        # Try contour-based plate detection first
-        plate_crops = _find_plate_contours(crop)
-
-        if not plate_crops:
-            # Use the entire lower region as fallback
-            plate_crops = [(crop, BBox(
-                x1=plate_region.x1, y1=plate_region.y1,
-                x2=plate_region.x2, y2=plate_region.y2
-            ))]
-
-        for plate_img, plate_bbox in plate_crops:
-            # Try GLM-OCR (Gemini Vision) first for higher accuracy
-            try:
-                from ml.ocr.glm_ocr import read_plate_glm
-                glm_result = read_plate_glm(plate_img)
-                if glm_result and glm_result.get("confidence", 0) >= OCR_MIN_CONFIDENCE:
-                    plates.append(PlateResult(
-                        text=glm_result["text"],
-                        confidence=glm_result["confidence"],
-                        bbox=plate_bbox,
-                        raw_text=glm_result.get("raw_response", glm_result["text"]),
-                    ))
-                    logger.info(f"GLM-OCR read plate: {glm_result['text']}")
-                    continue  # Got it from Gemini, skip PaddleOCR
-            except Exception as e:
-                logger.debug(f"GLM-OCR skipped: {e}")
-
-            # Fallback to PaddleOCR
-            result = _ocr_plate(plate_img, plate_bbox)
-            if result and result.confidence >= OCR_MIN_CONFIDENCE:
-                plates.append(result)
+    # Process vehicles in parallel to speed up API calls
+    if vehicles:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=min(5, len(vehicles))) as executor:
+            futures = [executor.submit(_process_vehicle_for_plate, vehicle, image) for vehicle in vehicles]
+            for future in concurrent.futures.as_completed(futures):
+                try:
+                    vehicle_plates = future.result()
+                    if vehicle_plates:
+                        plates.extend(vehicle_plates)
+                except Exception as e:
+                    logger.debug(f"Vehicle plate processing failed: {e}")
 
     # Also try full-image OCR for any visible plates not near vehicles
     if not plates and not fast_mode:
@@ -127,6 +99,56 @@ def read_plates(
 
     logger.info(f"Found {len(plates)} license plates")
     return plates
+
+def _process_vehicle_for_plate(vehicle: Detection, image: np.ndarray) -> List[PlateResult]:
+    """Process a single vehicle to find and read its license plate."""
+    vehicle_plates = []
+    
+    # Try to find plate in the lower half of the vehicle bbox
+    plate_region = _get_plate_region(vehicle.bbox, image.shape)
+
+    # Crop the plate search region
+    crop = image[plate_region.y1:plate_region.y2, plate_region.x1:plate_region.x2]
+    if crop.size == 0:
+        return vehicle_plates
+
+    # Try contour-based plate detection first
+    plate_crops = _find_plate_contours(crop)
+    
+    # Limit to top 2 contours to reduce API calls
+    plate_crops = plate_crops[:2]
+
+    if not plate_crops:
+        # Use the entire lower region as fallback
+        plate_crops = [(crop, BBox(
+            x1=plate_region.x1, y1=plate_region.y1,
+            x2=plate_region.x2, y2=plate_region.y2
+        ))]
+
+    for plate_img, plate_bbox in plate_crops:
+        # Try GLM-OCR (Gemini Vision) first for higher accuracy
+        try:
+            from ml.ocr.glm_ocr import read_plate_glm
+            glm_result = read_plate_glm(plate_img)
+            if glm_result and glm_result.get("confidence", 0) >= OCR_MIN_CONFIDENCE:
+                vehicle_plates.append(PlateResult(
+                    text=glm_result["text"],
+                    confidence=glm_result["confidence"],
+                    bbox=plate_bbox,
+                    raw_text=glm_result.get("raw_response", glm_result["text"]),
+                ))
+                logger.info(f"GLM-OCR read plate: {glm_result['text']}")
+                break  # Got it from Gemini, stop trying other crops for this vehicle
+        except Exception as e:
+            logger.debug(f"GLM-OCR skipped: {e}")
+
+        # Fallback to PaddleOCR
+        result = _ocr_plate(plate_img, plate_bbox)
+        if result and result.confidence >= OCR_MIN_CONFIDENCE:
+            vehicle_plates.append(result)
+            break  # Got it from PaddleOCR, stop trying other crops
+
+    return vehicle_plates
 
 
 def _get_plate_region(vehicle_bbox: BBox, image_shape: Tuple[int, ...]) -> BBox:
