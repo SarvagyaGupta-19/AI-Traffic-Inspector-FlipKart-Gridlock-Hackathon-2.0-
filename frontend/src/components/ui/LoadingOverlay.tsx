@@ -1,7 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import { createPortal } from 'react-dom';
+import React from 'react';
 
 interface LoadingOverlayProps {
   isVisible: boolean;
@@ -9,15 +8,7 @@ interface LoadingOverlayProps {
 }
 
 export default function LoadingOverlay({ isVisible, text = 'INITIALIZING SYSTEM...' }: LoadingOverlayProps) {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
-
-  return createPortal(
+  return (
     <div
       className={`fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#07707b] transition-opacity duration-500 ${
         isVisible ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
@@ -156,7 +147,6 @@ export default function LoadingOverlay({ isVisible, text = 'INITIALIZING SYSTEM.
           </div>
         </div>
       </div>
-    </div>,
-    document.body
+    </div>
   );
 }
