@@ -8,11 +8,11 @@ import json
 import logging
 import os
 import uuid
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Optional
 
-from fastapi import APIRouter, Depends, File, HTTPException, Query, UploadFile, Form
+from fastapi import APIRouter, Depends, File, HTTPException, Query, UploadFile, Form, status
 from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
 from sqlalchemy.orm import Session
 from starlette.concurrency import run_in_threadpool
@@ -24,7 +24,7 @@ from app.database import (
     get_db, get_violations, get_violation_by_id, delete_violation,
     get_analytics, ViolationDB, SessionLocal, clear_all_violations, UserDB
 )
-from app.auth import get_current_user, create_access_token, verify_password
+from app.auth import get_current_user, create_access_token, verify_password, ACCESS_TOKEN_EXPIRE_MINUTES
 from fastapi.security import OAuth2PasswordRequestForm
 from pydantic import BaseModel
 from app.pipeline import process_image
@@ -169,6 +169,14 @@ async def upload_video(
 class Token(BaseModel):
     access_token: str
     token_type: str
+
+def authenticate_user(db: Session, username: str, password: str) -> UserDB | None:
+    user = db.query(UserDB).filter(UserDB.username == username).first()
+    if not user:
+        return None
+    if not verify_password(password, user.hashed_password):
+        return None
+    return user
 
 @router.post("/auth/login", response_model=Token)
 async def login_for_access_token(
