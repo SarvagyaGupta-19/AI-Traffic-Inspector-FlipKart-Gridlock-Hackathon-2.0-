@@ -150,13 +150,13 @@ export default function LoginPage() {
         {/* Cinematic Footer Text */}
         <div className="mt-8 mb-6 z-10 w-full px-6 flex flex-col md:flex-row justify-between items-center text-[#1a1a1a] opacity-80 gap-4">
           <div className="text-xs sm:text-sm font-bold tracking-[0.3em] uppercase">
-            MEITU Kpacota
+            SECURE ACCESS
           </div>
           <div className="text-sm sm:text-base font-black tracking-[0.4em] uppercase text-center">
             A SYSTEM BY BENGALURU TRAFFIC POLICE
           </div>
           <div className="text-xs sm:text-sm font-bold tracking-[0.3em] uppercase">
-            PICTURE фOTO
+            GRIDLOCK V1.0
           </div>
         </div>
         
