@@ -22,19 +22,19 @@ from starlette.concurrency import run_in_threadpool
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from app.database import (
+from core.database import (
     get_db, get_violations, get_violation_by_id, delete_violation,
-    get_analytics, ViolationDB, SessionLocal, clear_all_violations, UserDB
+    get_analytics, ViolationDB, SessionLocal, clear_all_violations
 )
 
 from pydantic import BaseModel
-from app.pipeline import process_image
-from app.video_processor import VideoProcessor
+from services.pipeline import process_image
+from services.video_processor import VideoProcessor
 from config import UPLOADS_DIR, EVIDENCE_DIR
-from logic.zone_manager import (
+from services.zone_manager import (
     get_all_zones, add_zone, update_zone, delete_zone as remove_zone
 )
-from models.schemas import ZoneConfig
+from schemas.api_schemas import ZoneConfig
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api", tags=["api"])
@@ -348,7 +348,7 @@ async def health_check():
 async def model_info():
     """Get information about the loaded ML model."""
     try:
-        from models.detector import get_model_info
+        from ml.detector import get_model_info
         info = await run_in_threadpool(get_model_info)
         return info
     except Exception as e:

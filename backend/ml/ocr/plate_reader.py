@@ -15,7 +15,7 @@ import numpy as np
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from models.schemas import PlateResult, BBox, Detection
+from schemas.api_schemas import PlateResult, BBox, Detection
 from config import (
     OCR_LANG, OCR_USE_ANGLE_CLS, INDIAN_PLATE_REGEX, OCR_MIN_CONFIDENCE, FAST_OCR_MODE
 )
@@ -101,7 +101,7 @@ def read_plates(
         for plate_img, plate_bbox in plate_crops:
             # Try GLM-OCR (Gemini Vision) first for higher accuracy
             try:
-                from ocr.glm_ocr import read_plate_glm
+                from ml.ocr.glm_ocr import read_plate_glm
                 glm_result = read_plate_glm(plate_img)
                 if glm_result and glm_result.get("confidence", 0) >= OCR_MIN_CONFIDENCE:
                     plates.append(PlateResult(

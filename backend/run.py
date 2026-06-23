@@ -28,11 +28,11 @@ def main():
         d.mkdir(parents=True, exist_ok=True)
 
     # Initialize database
-    from app.database import init_db
+    from core.database import init_db
     init_db()
 
     # Initialize zones
-    from logic.zone_manager import init_zones
+    from services.zone_manager import init_zones
     init_zones()
 
     # Seed demo data if requested
@@ -54,7 +54,7 @@ def main():
     """)
 
     uvicorn.run(
-        "app.main:app",
+        "main:app",
         host=args.host,
         port=args.port,
         reload=args.reload,

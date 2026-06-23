@@ -14,7 +14,7 @@ import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from models.schemas import (
+from schemas.api_schemas import (
     Detection, Violation, ViolationType, BBox, ZoneConfig
 )
 from config import (

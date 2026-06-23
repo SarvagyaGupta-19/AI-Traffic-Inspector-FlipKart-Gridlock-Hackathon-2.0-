@@ -17,14 +17,14 @@ from sqlalchemy.orm import Session
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from models.schemas import AnalysisResult, Violation
-from models.detector import detect_objects, detect_with_tracking
-from logic.violations import detect_all_violations
-from logic.zone_manager import get_active_zones
-from ocr.plate_reader import read_plates
-from evidence.annotator import generate_evidence
-from app.database import store_violation
-from app.preprocessor import preprocess_image, is_image_too_blurry
+from schemas.api_schemas import AnalysisResult, Violation
+from ml.detector import detect_objects, detect_with_tracking
+from services.violations import detect_all_violations
+from services.zone_manager import get_active_zones
+from ml.ocr.plate_reader import read_plates
+from utils.annotator import generate_evidence
+from core.database import store_violation
+from services.preprocessor import preprocess_image, is_image_too_blurry
 from config import UPLOADS_DIR
 
 logger = logging.getLogger(__name__)

@@ -19,13 +19,13 @@ from sqlalchemy.orm import Session
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from models.detector import detect_objects
-from models.schemas import AnalysisResult, Detection, Violation
-from logic.violations import detect_all_violations
-from logic.zone_manager import get_active_zones
-from ocr.plate_reader import read_plates
-from evidence.annotator import generate_evidence
-from app.database import store_violation
+from ml.detector import detect_objects
+from schemas.api_schemas import AnalysisResult, Detection, Violation
+from services.violations import detect_all_violations
+from services.zone_manager import get_active_zones
+from ml.ocr.plate_reader import read_plates
+from utils.annotator import generate_evidence
+from core.database import store_violation
 from config import VIDEO_FRAME_WIDTH
 from datetime import datetime
 
@@ -149,7 +149,7 @@ class VideoProcessor:
 
         # Reset cascade tracker for new video
         try:
-            from models.cascade_detector import reset_tracker
+            from ml.cascade_detector import reset_tracker
             reset_tracker()
         except ImportError:
             pass
@@ -214,7 +214,7 @@ class VideoProcessor:
         start = time.time()
 
         try:
-            from models.cascade_detector import (
+            from ml.cascade_detector import (
                 get_cascade_detector, _already_flagged, _mark_flagged
             )
             

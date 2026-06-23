@@ -171,7 +171,7 @@ def read_plate_with_fallback(
 
     # Fallback to PaddleOCR
     try:
-        from ocr.plate_reader import _ocr_crop
+        from ml.ocr.plate_reader import _ocr_crop
         paddle_results = _ocr_crop(plate_crop)
         if paddle_results:
             best = max(paddle_results, key=lambda r: r.confidence)

@@ -20,8 +20,8 @@ import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from app.database import SessionLocal
-from app.pipeline import process_frame
+from core.database import SessionLocal
+from services.pipeline import process_frame
 from config import MAX_STREAM_FPS
 
 logger = logging.getLogger(__name__)
@@ -152,7 +152,7 @@ async def websocket_stream(websocket: WebSocket):
 
                     # Optionally send annotated frame back
                     if send_annotated and (result.violations or result.detections):
-                        from evidence.annotator import generate_evidence
+                        from utils.annotator import generate_evidence
                         annotated, _ = generate_evidence(frame, result, save=False)
                         _, buffer = cv2.imencode('.jpg', annotated,
                                                   [cv2.IMWRITE_JPEG_QUALITY, 70])

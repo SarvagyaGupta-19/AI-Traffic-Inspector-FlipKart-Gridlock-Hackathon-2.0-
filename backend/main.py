@@ -16,10 +16,10 @@ from fastapi.staticfiles import StaticFiles
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from config import CORS_ORIGINS, EVIDENCE_DIR, UPLOADS_DIR
-from app.database import init_db
-from app.routes import router as api_router
-from app.websocket import websocket_stream
-from logic.zone_manager import init_zones
+from core.database import init_db
+from api.routes import router as api_router
+from api.websocket import websocket_stream
+from services.zone_manager import init_zones
 
 # ─── Logging ─────────────────────────────────────────────────
 logging.basicConfig(

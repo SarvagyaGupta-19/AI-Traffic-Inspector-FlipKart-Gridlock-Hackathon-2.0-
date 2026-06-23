@@ -66,7 +66,7 @@ def detect_objects(
     from config import (
         YOLO_CONFIDENCE, YOLO_IOU_THRESHOLD, YOLO_IMG_SIZE, TRAFFIC_CLASSES
     )
-    from models.schemas import Detection, BBox
+    from schemas.api_schemas import Detection, BBox
 
     conf = confidence or YOLO_CONFIDENCE
     iou = iou_threshold or YOLO_IOU_THRESHOLD
@@ -128,7 +128,7 @@ def detect_with_tracking(
     import sys
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
     from config import YOLO_CONFIDENCE, TRAFFIC_CLASSES
-    from models.schemas import Detection, BBox
+    from schemas.api_schemas import Detection, BBox
 
     conf = confidence or YOLO_CONFIDENCE
     model = _get_model()

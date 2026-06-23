@@ -17,7 +17,7 @@ import numpy as np
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from models.schemas import Detection, Violation, PlateResult, AnalysisResult
+from schemas.api_schemas import Detection, Violation, PlateResult, AnalysisResult
 from config import EVIDENCE_DIR, EVIDENCE_BOX_COLORS, EVIDENCE_WATERMARK
 
 logger = logging.getLogger(__name__)

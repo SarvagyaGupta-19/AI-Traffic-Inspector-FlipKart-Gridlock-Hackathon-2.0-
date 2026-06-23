@@ -22,7 +22,7 @@ import numpy as np
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from models.schemas import Detection, BBox
+from schemas.api_schemas import Detection, BBox
 
 logger = logging.getLogger(__name__)
 
@@ -110,7 +110,7 @@ class CascadeDetector:
         Stage 1: Run local YOLOv8 with ByteTrack for object tracking.
         Returns base detections with persistent track IDs.
         """
-        from models.detector import detect_with_tracking
+        from ml.detector import detect_with_tracking
         detections, elapsed_ms, _ = detect_with_tracking(frame)
         return detections, elapsed_ms
 
@@ -120,7 +120,7 @@ class CascadeDetector:
         """
         Stage 1 fallback: Run local YOLOv8 without tracking (for single images).
         """
-        from models.detector import detect_objects
+        from ml.detector import detect_objects
         detections, elapsed_ms, _ = detect_objects(frame)
         return detections, elapsed_ms
 

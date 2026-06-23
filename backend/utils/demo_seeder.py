@@ -14,7 +14,7 @@ import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from app.database import SessionLocal, store_violation, ViolationDB
+from core.database import SessionLocal, store_violation, ViolationDB
 
 logger = logging.getLogger(__name__)
 
@@ -135,7 +135,7 @@ def seed_demo_data(count: int = 30):
 
 
 if __name__ == "__main__":
-    from app.database import init_db
+    from core.database import init_db
     init_db()
     seed_demo_data()
     print("Demo data seeded successfully!")
