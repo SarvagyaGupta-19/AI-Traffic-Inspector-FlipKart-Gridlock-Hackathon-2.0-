@@ -1,8 +1,25 @@
-import Link from 'next/link';
+'use client';
+
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import LoadingOverlay from '@/components/ui/LoadingOverlay';
 
 export default function LandingPage() {
+  const [isNavigating, setIsNavigating] = useState(false);
+  const router = useRouter();
+
+  const handleOfficerAccess = () => {
+    setIsNavigating(true);
+    // Let the animation play for 1.5 seconds before navigating
+    setTimeout(() => {
+      router.push('/login');
+    }, 1500);
+  };
+
   return (
     <div className="relative min-h-screen bg-[#07707b] overflow-hidden selection:bg-[#f4a896] selection:text-[#07707b] flex flex-col" style={{ fontFamily: 'Impact, "Arial Black", sans-serif' }}>
+      <LoadingOverlay isVisible={isNavigating} text="ESTABLISHING SECURE CONNECTION..." />
+
       {/* Heavy Grain/Noise Texture */}
       <div 
         className="absolute inset-0 opacity-20 pointer-events-none mix-blend-overlay z-0" 
@@ -93,12 +110,12 @@ export default function LandingPage() {
 
       {/* Footer / CTA */}
       <footer className="relative z-40 p-6 sm:p-[4vh] flex justify-center mt-auto font-sans">
-        <Link 
-          href="/login"
+        <button 
+          onClick={handleOfficerAccess}
           className="px-8 py-4 bg-[#f4f4f4] text-[#07707b] font-black uppercase tracking-[0.2em] text-sm sm:text-[2vh] hover:bg-[#f4a896] hover:text-[#111] transition-colors shadow-[6px_6px_0px_rgba(0,0,0,0.8)] border-2 border-[#111] active:translate-y-1 active:translate-x-1 active:shadow-[2px_2px_0px_rgba(0,0,0,0.8)]"
         >
           CLICK FOR OFFICER ACCESS
-        </Link>
+        </button>
       </footer>
     </div>
   );

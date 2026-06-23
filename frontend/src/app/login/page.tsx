@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import api from '@/lib/api';
 import { Lock, User, ArrowRight } from 'lucide-react';
+import LoadingOverlay from '@/components/ui/LoadingOverlay';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -19,7 +20,8 @@ export default function LoginPage() {
 
     try {
       await api.login(username, password);
-      // On success, redirect to dashboard
+      // On success, redirect to dashboard.
+      // Intentionally NOT setting loading to false so the overlay persists until the new page mounts.
       router.push('/upload');
     } catch (err: unknown) {
       if (err instanceof Error) {
@@ -27,7 +29,7 @@ export default function LoginPage() {
       } else {
         setError('Login failed. Check your credentials.');
       }
-    } finally {
+      // Only unset loading on error so the user can try again
       setLoading(false);
     }
   };
@@ -38,6 +40,8 @@ export default function LoginPage() {
         @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Jost:wght@400;500;700&display=swap');
       `}</style>
       
+      <LoadingOverlay isVisible={loading} text="AUTHENTICATING OFFICER CREDENTIALS..." />
+
       <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-[#e8b598] via-[#f2c19e] to-[#7f7d9c] relative overflow-hidden font-['Jost',sans-serif]">
         
         {/* Noise Overlay */}
