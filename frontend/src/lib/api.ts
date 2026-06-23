@@ -1,5 +1,5 @@
 /**
- * Flipkart Gridlock — API Client
+ * AI Traffic Inspector — API Client
  * Communicates with the FastAPI backend.
  */
 import type {

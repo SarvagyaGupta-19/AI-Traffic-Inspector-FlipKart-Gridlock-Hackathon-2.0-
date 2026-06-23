@@ -1,5 +1,5 @@
 """
-Flipkart Gridlock - Video Processor
+AI Traffic Inspector - Video Processor
 Processes uploaded video files frame-by-frame through the detection pipeline.
 Yields annotated frames and results for real-time streaming back to the frontend.
 """

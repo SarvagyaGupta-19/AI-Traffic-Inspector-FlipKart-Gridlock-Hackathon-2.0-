@@ -1,5 +1,5 @@
 """
-Flipkart Gridlock — Comprehensive System Audit
+AI Traffic Inspector — Comprehensive System Audit
 Tests all components for engineering, design, and security gaps.
 """
 import sys
@@ -40,7 +40,7 @@ def warn_check(name, fn):
 
 
 print("=" * 70)
-print("  FLIPKART GRIDLOCK — FULL SYSTEM AUDIT")
+print("  FLIPKART AI TRAFFIC INSPECTOR — FULL SYSTEM AUDIT")
 print("=" * 70)
 
 # ─── 1. CORE IMPORTS ──────────────────────────────────────────

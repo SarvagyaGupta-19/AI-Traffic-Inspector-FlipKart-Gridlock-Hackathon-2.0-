@@ -1,5 +1,5 @@
 """
-Flipkart Gridlock — GLM-OCR (Gemini Vision License Plate Reader)
+AI Traffic Inspector — GLM-OCR (Gemini Vision License Plate Reader)
 Uses Google's Gemini Vision API as a Vision-Language Model for high-accuracy
 license plate text extraction from cropped plate images.
 

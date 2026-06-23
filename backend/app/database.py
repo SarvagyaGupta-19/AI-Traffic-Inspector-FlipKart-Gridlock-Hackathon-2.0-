@@ -1,5 +1,5 @@
 """
-Flipkart Gridlock — Database Layer
+AI Traffic Inspector — Database Layer
 SQLAlchemy + SQLite for violation record storage.
 """
 from __future__ import annotations

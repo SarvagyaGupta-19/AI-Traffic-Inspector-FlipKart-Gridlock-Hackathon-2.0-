@@ -45,7 +45,7 @@ export default function LandingPage() {
                <h1 className="text-[120px] sm:text-[20vh] leading-[0.75] text-[#f4f4f4] tracking-tighter uppercase" style={{ textShadow: '0px 10px 30px rgba(0,0,0,0.15)' }}>WAIT</h1>
              </div>
              <div className="h-20 sm:h-[14vh] flex items-center justify-center">
-               <h1 className="text-[120px] sm:text-[20vh] leading-[0.75] text-[#f4f4f4] tracking-tighter uppercase" style={{ textShadow: '0px 10px 30px rgba(0,0,0,0.15)' }}>GO</h1>
+               <h1 className="text-[120px] sm:text-[20vh] leading-[0.75] text-[#f4f4f4] tracking-tighter uppercase" style={{ textShadow: '0px 10px 30px rgba(0,0,0,0.15)' }}>MOVE</h1>
              </div>
            </div>
         </div>
@@ -85,7 +85,7 @@ export default function LandingPage() {
                <h1 className="text-[120px] sm:text-[20vh] leading-[0.75] text-transparent tracking-tighter uppercase" style={{ WebkitTextStroke: '2px #f4f4f4' }}>WAIT</h1>
              </div>
              <div className="h-20 sm:h-[14vh] flex items-center justify-center">
-               <h1 className="text-[120px] sm:text-[20vh] leading-[0.75] text-transparent tracking-tighter uppercase" style={{ WebkitTextStroke: '2px #f4f4f4' }}>GO</h1>
+               <h1 className="text-[120px] sm:text-[20vh] leading-[0.75] text-transparent tracking-tighter uppercase" style={{ WebkitTextStroke: '2px #f4f4f4' }}>MOVE</h1>
              </div>
            </div>
         </div>

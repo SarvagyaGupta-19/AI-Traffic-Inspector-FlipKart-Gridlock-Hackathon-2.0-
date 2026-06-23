@@ -1,5 +1,5 @@
 """
-Flipkart Gridlock — Violation Logic Engine
+AI Traffic Inspector — Violation Logic Engine
 Rule-based violation detection using spatial geometry on YOLO detections.
 No ML training needed — pure geometry + heuristics.
 """

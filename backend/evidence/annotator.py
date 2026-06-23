@@ -1,5 +1,5 @@
 """
-Flipkart Gridlock — Evidence Annotator
+AI Traffic Inspector — Evidence Annotator
 Generates judge-ready annotated evidence images with bounding boxes,
 violation labels, confidence scores, plate text, and timestamps.
 """
@@ -95,7 +95,7 @@ def _draw_header(image: np.ndarray, result: AnalysisResult) -> np.ndarray:
         status_text = "[OK] NO VIOLATIONS DETECTED"
         status_color = (80, 200, 80)  # Green
 
-    # Draw "GRIDLOCK EVIDENCE" watermark
+    # Draw "AI TRAFFIC INSPECTOR EVIDENCE" watermark
     cv2.putText(header, EVIDENCE_WATERMARK, (10, 30),
                 cv2.FONT_HERSHEY_SIMPLEX, 0.6, (180, 180, 180), 1)
 
@@ -251,7 +251,7 @@ def _draw_footer(image: np.ndarray, result: AnalysisResult) -> np.ndarray:
         f"Violations: {len(result.violations)} | "
         f"Plates: {len(result.plates)} | "
         f"Processing: {result.processing_time_ms:.0f}ms | "
-        f"Flipkart Gridlock"
+        f"AI Traffic Inspector"
     )
 
     cv2.putText(footer, info, (10, 20),

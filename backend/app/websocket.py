@@ -1,5 +1,5 @@
 """
-Flipkart Gridlock — WebSocket Video Streaming
+AI Traffic Inspector — WebSocket Video Streaming
 Real-time video frame processing over WebSocket.
 """
 from __future__ import annotations

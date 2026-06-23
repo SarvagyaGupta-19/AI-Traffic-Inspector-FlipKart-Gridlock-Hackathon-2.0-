@@ -1,5 +1,5 @@
 /**
- * Flipkart Gridlock — TypeScript Type Definitions
+ * AI Traffic Inspector — TypeScript Type Definitions
  * Mirrors backend Pydantic schemas for type safety.
  */
 

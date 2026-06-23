@@ -9,7 +9,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Gridlock — Traffic Violation Detection",
+  title: "AI Traffic Inspector — Traffic Violation Detection",
   description: "AI-powered automated traffic violation detection and enforcement system",
   keywords: ["traffic", "violation", "detection", "AI", "computer vision", "YOLO"],
 };

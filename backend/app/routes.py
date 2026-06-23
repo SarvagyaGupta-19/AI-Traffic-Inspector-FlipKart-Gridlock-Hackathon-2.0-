@@ -1,5 +1,5 @@
 """
-Flipkart Gridlock — API Routes
+AI Traffic Inspector — API Routes
 REST endpoints for the traffic violation detection system.
 """
 from __future__ import annotations
@@ -362,7 +362,7 @@ async def health_check():
     return {
         "status": "healthy",
         "timestamp": datetime.now().isoformat(),
-        "service": "Flipkart Gridlock",
+        "service": "AI Traffic Inspector",
     }
 
 

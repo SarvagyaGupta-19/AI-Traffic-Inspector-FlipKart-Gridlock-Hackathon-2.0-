@@ -1,5 +1,5 @@
 """
-Flipkart Gridlock — Detection Pipeline Orchestrator
+AI Traffic Inspector — Detection Pipeline Orchestrator
 Connects: Image → YOLO → Violation Logic → OCR → Evidence → DB
 """
 from __future__ import annotations

@@ -1,5 +1,5 @@
 """
-Flipkart Gridlock — Data Schemas
+AI Traffic Inspector — Data Schemas
 Pydantic models that define the output contract for the entire pipeline.
 """
 from __future__ import annotations

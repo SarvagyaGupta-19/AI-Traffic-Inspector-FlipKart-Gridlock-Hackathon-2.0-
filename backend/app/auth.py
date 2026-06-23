@@ -1,5 +1,5 @@
 """
-Flipkart Gridlock — Authentication Layer
+AI Traffic Inspector — Authentication Layer
 JWT based authentication for securing the dashboard.
 """
 from datetime import datetime, timedelta

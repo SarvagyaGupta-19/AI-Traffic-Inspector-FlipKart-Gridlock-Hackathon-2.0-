@@ -1,5 +1,5 @@
 """
-Flipkart Gridlock — FastAPI Application
+AI Traffic Inspector — FastAPI Application
 Main application factory with CORS, route registration, and static file serving.
 """
 from __future__ import annotations
@@ -34,7 +34,7 @@ logger = logging.getLogger(__name__)
 async def lifespan(app: FastAPI):
     """Modern lifespan handler — runs setup on startup, cleanup on shutdown."""
     logger.info("=" * 60)
-    logger.info("  FLIPKART GRIDLOCK - Traffic Violation Detection")
+    logger.info("  FLIPKART AI TRAFFIC INSPECTOR - Traffic Violation Detection")
     logger.info("=" * 60)
     init_db()
     init_zones()
@@ -42,14 +42,14 @@ async def lifespan(app: FastAPI):
     logger.info("=" * 60)
     yield
     # Shutdown cleanup (if needed in the future)
-    logger.info("Shutting down Flipkart Gridlock...")
+    logger.info("Shutting down AI Traffic Inspector...")
 
 
 def create_app() -> FastAPI:
     """Create and configure the FastAPI application."""
 
     app = FastAPI(
-        title="Flipkart Gridlock",
+        title="AI Traffic Inspector",
         description="Automated Traffic Violation Detection System",
         version="1.0.0",
         docs_url="/docs",
@@ -86,7 +86,7 @@ def create_app() -> FastAPI:
     @app.get("/")
     async def root():
         return {
-            "service": "Flipkart Gridlock",
+            "service": "AI Traffic Inspector",
             "version": "1.0.0",
             "status": "running",
             "docs": "/docs",

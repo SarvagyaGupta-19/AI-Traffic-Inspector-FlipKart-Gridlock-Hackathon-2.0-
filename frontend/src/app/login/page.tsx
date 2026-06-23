@@ -156,7 +156,7 @@ export default function LoginPage() {
             A SYSTEM BY BENGALURU TRAFFIC POLICE
           </div>
           <div className="text-xs sm:text-sm font-bold tracking-[0.3em] uppercase">
-            GRIDLOCK V1.0
+            AI TRAFFIC INSPECTOR V1.0
           </div>
         </div>
         

@@ -1,11 +1,11 @@
-# 🚦 GRIDLOCK: Automated Photo Identification and Classification for Traffic Violations
+# 🚦 AI TRAFFIC INSPECTOR: Automated Photo Identification and Classification for Traffic Violations
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110.0-009688.svg?logo=fastapi)](https://fastapi.tiangolo.com/)
 [![Next.js](https://img.shields.io/badge/Next.js-15.0-000000.svg?logo=next.js)](https://nextjs.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**Project Name:** GRIDLOCK - The Ultimate AI Traffic Inspector  
+**Project Name:** AI TRAFFIC INSPECTOR - The Ultimate AI Traffic Inspector  
 **Hackathon:** Flipkart Gridlock Hackathon 2.0  
 **Team/Submitter:** Sarvagya Gupta
 
@@ -15,7 +15,7 @@
 
 With the increasing deployment of traffic surveillance cameras and automated monitoring systems, large volumes of traffic images are generated every day. Manual inspection of these images to identify traffic violations is labor-intensive, time-consuming, and prone to inconsistencies. 
 
-**Gridlock** is a unique, practical, and highly innovative computer vision solution that directly addresses this real-world problem. Serving as a complete **Solution Framework & Prototype**, Gridlock automatically processes traffic images and live video streams to detect vehicles and road users, identify and classify multiple traffic violations, and generate pristine annotated evidence for law enforcement review.
+**AI Traffic Inspector** is a unique, practical, and highly innovative computer vision solution that directly addresses this real-world problem. Serving as a complete **Solution Framework & Prototype**, AI Traffic Inspector automatically processes traffic images and live video streams to detect vehicles and road users, identify and classify multiple traffic violations, and generate pristine annotated evidence for law enforcement review.
 
 Our system is designed to be highly robust to varying environmental conditions and traffic densities, ensuring maximum accuracy and horizontal scalability.
 
@@ -23,10 +23,10 @@ Our system is designed to be highly robust to varying environmental conditions a
 
 ## 🎯 How We Addressed the Hackathon Tasks
 
-We mapped our engineering directly to the core challenges outlined in the problem statement. Here is how Gridlock executes each required task:
+We mapped our engineering directly to the core challenges outlined in the problem statement. Here is how AI Traffic Inspector executes each required task:
 
 ### 1. Image Preprocessing
-Gridlock enhances image quality and normalizes inputs before passing them to the AI pipeline. 
+AI Traffic Inspector enhances image quality and normalizes inputs before passing them to the AI pipeline. 
 * **Dynamic Adjustment:** We utilize OpenCV techniques (like CLAHE for contrast enhancement and Otsu's thresholding) to handle challenges such as low light, heavy shadows, and rain.
 * **Motion Blur Handling:** Frames with excessive motion blur are smoothed and sharpened to preserve license plate fidelity.
 
@@ -35,7 +35,7 @@ Gridlock enhances image quality and normalizes inputs before passing them to the
 * **Classification:** The model categorizes road users into distinct groups (`car`, `motorcycle`, `person`, `bus`, `truck`) ensuring accurate context for violation logic.
 
 ### 3. Traffic Violation Detection & Classification
-Gridlock doesn't rely on slow, monolithic classifiers. Instead, it utilizes a highly explainable **Spatial Logic Engine** to identify and categorize violations with assigned confidence scores:
+AI Traffic Inspector doesn't rely on slow, monolithic classifiers. Instead, it utilizes a highly explainable **Spatial Logic Engine** to identify and categorize violations with assigned confidence scores:
 
 | Violation Type | Detection Logic |
 | :--- | :--- |
@@ -68,7 +68,7 @@ Gridlock doesn't rely on slow, monolithic classifiers. Instead, it utilizes a hi
 
 ## 🚀 Expected Outcome Achieved
 
-Gridlock successfully delivers a **scalable AI-based traffic image analysis system**. It automatically identifies, classifies, and documents traffic violations from photographic evidence, drastically reducing manual enforcement effort while establishing a modern, tamper-proof system for municipal monitoring.
+AI Traffic Inspector successfully delivers a **scalable AI-based traffic image analysis system**. It automatically identifies, classifies, and documents traffic violations from photographic evidence, drastically reducing manual enforcement effort while establishing a modern, tamper-proof system for municipal monitoring.
 
 ---
 
@@ -97,7 +97,7 @@ cd frontend
 npm install
 npm run dev
 ```
-*Open `http://localhost:3000` to access the Gridlock Officer Dashboard.*
+*Open `http://localhost:3000` to access the AI Traffic Inspector Officer Dashboard.*
 
 ---
 *Built for the Flipkart Gridlock Hackathon 2.0*

@@ -1,5 +1,5 @@
 """
-Flipkart Gridlock — Central Configuration
+AI Traffic Inspector — Central Configuration
 All configurable parameters in one place.
 """
 import os
@@ -75,7 +75,7 @@ EVIDENCE_BOX_COLORS = {
     "plate": (0, 122, 255),         # Blue
     "detection": (255, 214, 10),    # Yellow
 }
-EVIDENCE_WATERMARK = "GRIDLOCK EVIDENCE"
+EVIDENCE_WATERMARK = "AI TRAFFIC INSPECTOR EVIDENCE"
 
 # ─── Server ──────────────────────────────────────────────────
 HOST = os.getenv("HOST", "0.0.0.0")

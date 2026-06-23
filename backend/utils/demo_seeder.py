@@ -1,5 +1,5 @@
 """
-Flipkart Gridlock — Demo Data Seeder
+AI Traffic Inspector — Demo Data Seeder
 Seeds the database with realistic demo violations so the dashboard
 looks populated for hackathon judging.
 """

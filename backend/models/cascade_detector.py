@@ -1,5 +1,5 @@
 """
-Flipkart Gridlock — Multi-Stage Cascade Detector
+AI Traffic Inspector — Multi-Stage Cascade Detector
 Real multi-model pipeline using Roboflow hosted models + local YOLO + ByteTrack.
 
 Architecture:

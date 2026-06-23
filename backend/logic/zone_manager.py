@@ -1,5 +1,5 @@
 """
-Flipkart Gridlock — Zone Manager
+AI Traffic Inspector — Zone Manager
 Manages violation detection zones (stop lines, wrong-side boundaries, no-parking areas).
 Supports interactive zone creation from the frontend.
 """

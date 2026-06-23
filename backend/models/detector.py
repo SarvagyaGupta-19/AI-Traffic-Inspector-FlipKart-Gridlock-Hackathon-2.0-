@@ -1,5 +1,5 @@
 """
-Flipkart Gridlock — YOLOv8 Detection Wrapper
+AI Traffic Inspector — YOLOv8 Detection Wrapper
 Loads pretrained YOLOv8s and runs inference on traffic images.
 Auto-detects GPU/CPU. Filters to traffic-relevant COCO classes.
 """

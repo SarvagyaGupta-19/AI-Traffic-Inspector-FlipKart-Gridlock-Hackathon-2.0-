@@ -1,5 +1,5 @@
 """
-Flipkart Gridlock — Image Utilities
+AI Traffic Inspector — Image Utilities
 Helper functions for image loading, resizing, and format conversion.
 """
 from __future__ import annotations

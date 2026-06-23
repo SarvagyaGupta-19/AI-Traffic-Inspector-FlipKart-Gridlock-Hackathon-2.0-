@@ -1,15 +1,15 @@
 # Solution Framework: Automated Photo Identification & Classification for Traffic Violations
 
-**Project Name:** GRIDLOCK - The Ultimate AI Traffic Inspector  
+**Project Name:** AI TRAFFIC INSPECTOR - The Ultimate AI Traffic Inspector  
 **Hackathon:** Flipkart Gridlock Hackathon 2.0  
 **Team/Submitter:** Sarvagya Gupta
 
 ---
 
 ## 1. Executive Summary
-With the rapid deployment of urban traffic surveillance, manual inspection of millions of daily traffic images has become an unscalable bottleneck. **Gridlock** is an intelligent, end-to-end computer vision solution designed to automatically process traffic imagery, detect vehicles and pedestrians, accurately identify multiple violation types, and generate tamper-proof annotated evidence. 
+With the rapid deployment of urban traffic surveillance, manual inspection of millions of daily traffic images has become an unscalable bottleneck. **AI Traffic Inspector** is an intelligent, end-to-end computer vision solution designed to automatically process traffic imagery, detect vehicles and pedestrians, accurately identify multiple violation types, and generate tamper-proof annotated evidence. 
 
-By leveraging a multi-stage AI pipeline consisting of YOLOv8s, Roboflow models, and PaddleOCR, Gridlock ensures high-speed, scalable, and highly accurate traffic law enforcement without human intervention.
+By leveraging a multi-stage AI pipeline consisting of YOLOv8s, Roboflow models, and PaddleOCR, AI Traffic Inspector ensures high-speed, scalable, and highly accurate traffic law enforcement without human intervention.
 
 ## 2. Core Objectives Addressed
 This solution directly addresses the hackathon's core tasks:
@@ -21,7 +21,7 @@ This solution directly addresses the hackathon's core tasks:
 
 ## 3. System Architecture & Workflow
 
-Gridlock operates on a 5-step cascade architecture to ensure maximum computational efficiency:
+AI Traffic Inspector operates on a 5-step cascade architecture to ensure maximum computational efficiency:
 
 1. **Preprocessing & Ingestion:**
    - Handles variable image quality (low light, motion blur) using OpenCV normalizations.
@@ -38,7 +38,7 @@ Gridlock operates on a 5-step cascade architecture to ensure maximum computation
    - Triggered *only* when a violation is confirmed (saves massive computational overhead).
    - Extracts registration strings using Regex validation specific to Indian RTO formats (e.g., `KA 01 AB 1234`).
 5. **Reporting & Evidence Generation:**
-   - Overlays bounding boxes, confidence scores, and a `GRIDLOCK EVIDENCE` watermark.
+   - Overlays bounding boxes, confidence scores, and a `AI TRAFFIC INSPECTOR EVIDENCE` watermark.
    - Saves metadata (timestamp, location, violation type) to a thread-safe SQLite database.
 
 ## 4. Technology Stack
@@ -53,10 +53,10 @@ Gridlock operates on a 5-step cascade architecture to ensure maximum computation
 - **Scalability:** The FastAPI backend is built with asynchronous thread-pools (`run_in_threadpool`), ensuring that heavy OpenCV/YOLO operations do not block the main event loop, allowing simultaneous processing of multiple camera feeds.
 
 ## 6. Real-World Impact
-Gridlock provides immediate value to municipal traffic authorities by:
+AI Traffic Inspector provides immediate value to municipal traffic authorities by:
 1. **Reducing Manual Labor:** Automates 99% of the initial review process.
 2. **Increasing Revenue & Compliance:** Catches fleeting violations (like triple riding or seatbelts) that human operators miss.
 3. **Tamper-Proof Enforcement:** Generates concrete, annotated photographic evidence required for legal challan issuance.
 
 ## 7. Conclusion
-Gridlock is a practical, innovative, and deployment-ready solution. By combining state-of-the-art computer vision models with a highly scalable web infrastructure and a beautiful, intuitive dashboard, it perfectly satisfies the objectives of the Flipkart Gridlock Hackathon 2.0.
+AI Traffic Inspector is a practical, innovative, and deployment-ready solution. By combining state-of-the-art computer vision models with a highly scalable web infrastructure and a beautiful, intuitive dashboard, it perfectly satisfies the objectives of the Flipkart Gridlock Hackathon 2.0.

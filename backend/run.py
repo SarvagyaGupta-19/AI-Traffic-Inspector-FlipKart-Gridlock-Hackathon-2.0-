@@ -1,5 +1,5 @@
 """
-Flipkart Gridlock — Entry Point
+AI Traffic Inspector — Entry Point
 One-command startup: python run.py
 
 Creates directories, initializes database, optionally seeds demo data,
@@ -14,7 +14,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Flipkart Gridlock Server")
+    parser = argparse.ArgumentParser(description="AI Traffic Inspector Server")
     parser.add_argument("--host", default="0.0.0.0", help="Bind host")
     parser.add_argument("--port", type=int, default=8000, help="Bind port")
     parser.add_argument("--seed", action="store_true", help="Seed demo data")
@@ -44,7 +44,7 @@ def main():
     import uvicorn
     print(f"""
 ==============================================================
-           FLIPKART GRIDLOCK - Traffic Violation             
+           FLIPKART AI TRAFFIC INSPECTOR - Traffic Violation             
               Detection System v1.0.0                        
 ==============================================================
   API Docs:   http://{args.host}:{args.port}/docs                    

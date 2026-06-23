@@ -1,5 +1,5 @@
 """
-Flipkart Gridlock — License Plate Reader
+AI Traffic Inspector — License Plate Reader
 PaddleOCR-based pipeline for Indian number plate detection and text extraction.
 """
 from __future__ import annotations
